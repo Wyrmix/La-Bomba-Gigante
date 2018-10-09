@@ -20,6 +20,8 @@ import inkapplicaitons.android.logger.CompositeLogger
 import inkapplicaitons.android.logger.ConsoleLogger
 import inkapplicaitons.android.logger.Logger
 import io.palaima.debugdrawer.DebugDrawer
+import io.palaima.debugdrawer.actions.ActionsModule
+import io.palaima.debugdrawer.actions.ButtonAction
 import io.palaima.debugdrawer.commons.BuildModule
 import io.palaima.debugdrawer.commons.DeviceModule
 import io.palaima.debugdrawer.commons.NetworkModule
@@ -96,9 +98,10 @@ val appModule = module {
             }
 
             module("debug") {
-                single { (activity: Activity) ->
+                single { (activity: Activity, listener: () -> Unit) ->
                     DebugDrawer.Builder(activity)
                             .modules(
+                                    ActionsModule(ButtonAction("Clear database", listener)),
                                     DeviceModule(),
                                     BuildModule(),
                                     NetworkModule(),

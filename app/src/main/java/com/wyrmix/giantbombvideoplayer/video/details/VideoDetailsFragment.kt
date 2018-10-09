@@ -32,8 +32,6 @@ class VideoDetailsFragment: Fragment() {
             startActivity(intent)
         }
 
-        binding.appbar.setExpanded(false)
-
         return binding.root
     }
 }

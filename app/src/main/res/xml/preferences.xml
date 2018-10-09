@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/settings_section_account"
+        android:key="pref_key_account_settings">
+        <Preference
+            android:key="@string/pref_key_settings_account_premium"
+            android:summary="@string/settings_account_premium_subtitle"
+            android:title="@string/settings_account_premium_title" />
+        <Preference
+            android:key="@string/pref_key_settings_account_position"
+            android:summary="@string/settings_account_position_subtitle"
+            android:title="@string/settings_account_position_title" />
+    </PreferenceCategory>
+</PreferenceScreen>

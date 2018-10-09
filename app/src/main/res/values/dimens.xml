@@ -15,4 +15,9 @@
     <dimen name="navigation_drawer_header_height">192dp</dimen>
     <dimen name="navigation_drawer_header_padding">16dp</dimen>
     <dimen name="navigation_drawer_image_width">100dp</dimen>
+
+    <dimen name="padding_tiny">4dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_standard">16dp</dimen>
+    <integer name="num_columns">2</integer>
 </resources>
