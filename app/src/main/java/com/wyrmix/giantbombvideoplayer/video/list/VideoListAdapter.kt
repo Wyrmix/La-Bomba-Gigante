@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.wyrmix.giantbombvideoplayer.R
 import com.wyrmix.giantbombvideoplayer.video.database.Video
 
-class VideoListAdapter: PagedListAdapter<Video, RecyclerView.ViewHolder>(POST_COMPARATOR) {
+class VideoListAdapter(val navigate: (video: Video?) -> Unit): PagedListAdapter<Video, RecyclerView.ViewHolder>(POST_COMPARATOR) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             R.layout.video_card -> VideoViewHolder.create(parent)
@@ -17,7 +17,7 @@ class VideoListAdapter: PagedListAdapter<Video, RecyclerView.ViewHolder>(POST_CO
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is VideoViewHolder -> holder.bind(getItem(position))
+            is VideoViewHolder -> holder.bind(getItem(position), navigate)
         }
     }
 

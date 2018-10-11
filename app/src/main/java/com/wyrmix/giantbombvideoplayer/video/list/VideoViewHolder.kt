@@ -6,11 +6,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.wyrmix.giantbombvideoplayer.databinding.VideoCardBinding
 import com.wyrmix.giantbombvideoplayer.video.database.Video
+import timber.log.Timber
 
 class VideoViewHolder(val binding: VideoCardBinding, view: View): RecyclerView.ViewHolder(view) {
 
-    fun bind(video: Video?) {
+    fun bind(video: Video?, navigate: (video: Video?) -> Unit) {
         binding.video = video
+        binding.clickListener = View.OnClickListener {
+            Timber.v("clicking on video [${video?.id}]")
+            navigate.invoke(video)
+        }
     }
 
     companion object {

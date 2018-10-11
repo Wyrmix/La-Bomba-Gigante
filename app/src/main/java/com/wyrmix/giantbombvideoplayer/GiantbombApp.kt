@@ -23,7 +23,10 @@ class GiantbombApp : Application() {
 
     private fun registerGlideConfigs() {
         GlideBindingConfig.registerProvider("default") { iv, request ->
-            val options = RequestOptions().centerCrop()
+            val options = RequestOptions()
+                    .centerCrop()
+                    .placeholder(R.drawable.placeholder)
+                    .error(R.drawable.placeholder)
 
             request.apply(options)
         }

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wyrmix.giantbombvideoplayer.databinding.FragmentVideoListBinding
 import kotlinx.coroutines.experimental.Dispatchers
@@ -36,7 +37,12 @@ class VideoListFragment: Fragment() {
         binding.swipeToRefresh.setOnRefreshListener {
             viewModel.refresh()
         }
-        val adapter = VideoListAdapter()
+        val adapter = VideoListAdapter {
+            it?.apply {
+                val action = VideoListFragmentDirections.actionVideoListFragmentToVideoDetailsFragment(it)
+                binding.root.findNavController().navigate(action)
+            }
+        }
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         viewModel.posts.observe(this, Observer { pagedList ->
