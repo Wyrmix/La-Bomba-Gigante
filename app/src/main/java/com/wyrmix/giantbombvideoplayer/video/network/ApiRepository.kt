@@ -4,9 +4,12 @@ import android.content.SharedPreferences
 import com.wyrmix.giantbombvideoplayer.video.database.VideoCategoryDao
 import com.wyrmix.giantbombvideoplayer.video.database.VideoDao
 import com.wyrmix.giantbombvideoplayer.video.database.VideoShowDao
-import com.wyrmix.giantbombvideoplayer.video.models.*
+import com.wyrmix.giantbombvideoplayer.video.models.VideoCategoryResult
+import com.wyrmix.giantbombvideoplayer.video.models.VideoResult
+import com.wyrmix.giantbombvideoplayer.video.models.VideoShowResult
 import kotlinx.coroutines.experimental.CoroutineScope
 import kotlinx.coroutines.experimental.GlobalScope
+import timber.log.Timber
 import kotlin.coroutines.experimental.CoroutineContext
 
 const val defaultKey = "No Saved API Key"
@@ -45,6 +48,8 @@ class ApiRepository(
 
     suspend fun getVideos(): VideoResult {
         return giantbombApiClient.getVideos(key, json).await().apply {
+            Timber.i("Inserting [${results.size}] records into database")
+            Timber.v("Videos [${results.toTypedArray()}]")
             videoDao.insertVideo(*results.toTypedArray())
         }
     }

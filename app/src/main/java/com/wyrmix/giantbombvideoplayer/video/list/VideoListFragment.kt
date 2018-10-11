@@ -8,7 +8,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wyrmix.giantbombvideoplayer.databinding.FragmentVideoListBinding
+import kotlinx.coroutines.experimental.Dispatchers
+import kotlinx.coroutines.experimental.GlobalScope
+import kotlinx.coroutines.experimental.IO
+import kotlinx.coroutines.experimental.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class VideoListFragment: Fragment() {
     private val viewModel by viewModel<VideoBrowserViewModel>()
@@ -31,30 +36,25 @@ class VideoListFragment: Fragment() {
         binding.swipeToRefresh.setOnRefreshListener {
             viewModel.refresh()
         }
-        binding.recyclerView.adapter = VideoListAdapter()
+        val adapter = VideoListAdapter()
+        binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         viewModel.posts.observe(this, Observer { pagedList ->
-
+            adapter.submitList(pagedList)
         })
 
         viewModel.showData()
 
-//        GlobalScope.launch(Dispatchers.Main) {
-//            val videos = viewModel.getVideos()
-//            logger.info("Videos [${videos.results.size}]")
-//
-//            val shows = viewModel.getVideoShows()
-//            logger.info("Shows [${shows.results}]")
-//
-//            val categories = viewModel.getVideoCategories()
-//            logger.info("Categories [${categories.results}]")
-//
-//            val section = Section()
-//            section.addAll(videos.results.map { it.toVideoItem() })
-//            groupAdapter.add(section)
-//
-//            logger.info("Added ${section.itemCount} to adapter")
-//        }
+        GlobalScope.launch(Dispatchers.IO) {
+            val videos = viewModel.getVideos()
+            Timber.i("Videos [${videos.results.size}]")
+
+            val shows = viewModel.getVideoShows()
+            Timber.i("Shows [${shows.results.size}]")
+
+            val categories = viewModel.getVideoCategories()
+            Timber.i("Categories [${categories.results.size}]")
+        }
 
         return binding.root
     }

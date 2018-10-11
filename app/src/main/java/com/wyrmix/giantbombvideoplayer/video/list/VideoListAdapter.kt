@@ -21,6 +21,10 @@ class VideoListAdapter: PagedListAdapter<Video, RecyclerView.ViewHolder>(POST_CO
         }
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return R.layout.video_card
+    }
+
     companion object {
         val POST_COMPARATOR = object : DiffUtil.ItemCallback<Video>() {
             override fun areContentsTheSame(oldItem: Video, newItem: Video): Boolean =

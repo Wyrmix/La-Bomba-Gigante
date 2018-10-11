@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.wyrmix.giantbombvideoplayer.video.database.Video
 import com.wyrmix.giantbombvideoplayer.video.database.VideoDao
 import com.wyrmix.giantbombvideoplayer.video.models.Listing
@@ -54,7 +55,12 @@ class VideoRepository(
         val boundaryCallback = VideoBoundaryCallback(api, scope, db)
         // create a data source factory from Room
         val dataSourceFactory = db.selectPaged()
-        val builder = LivePagedListBuilder(dataSourceFactory, networkPageSize).setBoundaryCallback(boundaryCallback)
+        val config = PagedList.Config.Builder()
+                .setPageSize(10)
+                .setInitialLoadSizeHint(100)
+                .setEnablePlaceholders(true)
+                .build()
+        val builder = LivePagedListBuilder(dataSourceFactory, config).setBoundaryCallback(boundaryCallback)
 
         // we are using a mutable live data to trigger refresh requests which eventually calls
         // refresh method and gets a new live data. Each refresh request by the user becomes a newly

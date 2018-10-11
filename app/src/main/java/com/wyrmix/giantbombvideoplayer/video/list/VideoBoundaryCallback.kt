@@ -10,6 +10,7 @@ import kotlinx.coroutines.experimental.CoroutineScope
 import kotlinx.coroutines.experimental.Dispatchers
 import kotlinx.coroutines.experimental.IO
 import kotlinx.coroutines.experimental.async
+import timber.log.Timber
 
 class VideoBoundaryCallback(
         private val api: ApiRepository,
@@ -23,18 +24,21 @@ class VideoBoundaryCallback(
     }
 
     override fun onZeroItemsLoaded() {
+        Timber.v("VideoBoundaryCallback::onZeroItemsLoaded")
         scope.async(Dispatchers.IO) {
             api.getVideos()
         }
     }
 
     override fun onItemAtEndLoaded(itemAtEnd: Video) {
+        Timber.v("VideoBoundaryCallback::onItemAtEndLoaded")
         scope.async(Dispatchers.IO) {
             api.getVideosPaged(videoDao.getNumberOfRows())
         }
     }
 
     override fun onItemAtFrontLoaded(itemAtFront: Video) {
+        Timber.v("VideoBoundaryCallback::onItemAtFrontLoaded")
         scope.async(Dispatchers.IO) {
             api.getVideosPaged(0)
         }

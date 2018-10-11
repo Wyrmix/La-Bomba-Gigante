@@ -118,6 +118,7 @@ dependencies {
 
     kapt "com.github.bumptech.glide:compiler:4.8.0"
     implementation "com.github.bumptech.glide:glide:4.8.0"
+    compile 'com.github.s0nerik:glide-bindingadapter:1.2.1'
 
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.26.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:0.26.1'
