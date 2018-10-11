@@ -10,11 +10,11 @@ import timber.log.Timber
 
 class VideoViewHolder(val binding: VideoCardBinding, view: View): RecyclerView.ViewHolder(view) {
 
-    fun bind(video: Video?, navigate: (video: Video?) -> Unit) {
+    fun bind(video: Video?, navigate: (video: Video?, view: View) -> Unit) {
         binding.video = video
         binding.clickListener = View.OnClickListener {
             Timber.v("clicking on video [${video?.id}]")
-            navigate.invoke(video)
+            navigate.invoke(video, binding.root)
         }
     }
 

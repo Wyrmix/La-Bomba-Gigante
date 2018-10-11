@@ -1,13 +1,17 @@
 package com.wyrmix.giantbombvideoplayer.video.list
 
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.wyrmix.giantbombvideoplayer.R
 import com.wyrmix.giantbombvideoplayer.databinding.FragmentVideoListBinding
 import kotlinx.coroutines.experimental.Dispatchers
 import kotlinx.coroutines.experimental.GlobalScope
@@ -22,25 +26,15 @@ class VideoListFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FragmentVideoListBinding.inflate(inflater, container, false)
 
-//        groupAdapter.setOnItemClickListener { item, view ->
-//            run {
-//                when (item) {
-//                    is VideoItem -> {
-//                        val video = item.video
-//                        val action = VideoListFragmentDirections.actionVideoListFragmentToVideoDetailsFragment(video)
-//                        view.findNavController().navigate(action)
-//                    }
-//                }
-//            }
-//        }
-
         binding.swipeToRefresh.setOnRefreshListener {
             viewModel.refresh()
         }
-        val adapter = VideoListAdapter {
-            it?.apply {
-                val action = VideoListFragmentDirections.actionVideoListFragmentToVideoDetailsFragment(it)
-                binding.root.findNavController().navigate(action)
+        val adapter = VideoListAdapter { video, view ->
+            video?.apply {
+                val extras = FragmentNavigatorExtras(view.findViewById<AppCompatImageView>(R.id.video_thumbnail) to view.transitionName)
+                val action = VideoListFragmentDirections.actionVideoListFragmentToVideoDetailsFragment(video)
+                TransitionInflater.from(context).inflateTransition(R.transition.change_bounds).addTarget(view.findViewById<AppCompatImageView>(R.id.video_thumbnail))
+                binding.root.findNavController().navigate(action, extras)
             }
         }
         binding.recyclerView.adapter = adapter
