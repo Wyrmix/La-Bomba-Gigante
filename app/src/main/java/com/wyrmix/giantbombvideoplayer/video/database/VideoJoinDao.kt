@@ -1,3 +1,5 @@
+package com.wyrmix.giantbombvideoplayer.video.database
+
 //package com.wyrmix.giantbombvideoplayer.video.models
 //
 //import androidx.room.Dao

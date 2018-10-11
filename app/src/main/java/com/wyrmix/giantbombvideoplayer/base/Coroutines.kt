@@ -1,17 +1,17 @@
 package com.wyrmix.giantbombvideoplayer.base
 
-import inkapplicaitons.android.logger.Logger
 import kotlinx.coroutines.experimental.CoroutineExceptionHandler
 import kotlinx.coroutines.experimental.newSingleThreadContext
+import timber.log.Timber
 import kotlin.coroutines.experimental.AbstractCoroutineContextElement
 import kotlin.coroutines.experimental.CoroutineContext
 
-class UncaughtCoroutineExceptionHandler(private val logger: Logger) : CoroutineExceptionHandler, AbstractCoroutineContextElement(CoroutineExceptionHandler.Key) {
+class UncaughtCoroutineExceptionHandler: CoroutineExceptionHandler, AbstractCoroutineContextElement(CoroutineExceptionHandler.Key) {
     override fun handleException(context: CoroutineContext, exception: Throwable) {
-        logger.error(exception, "Exception [$exception] handled by $this")
+        Timber.e(exception, "Exception [$exception] handled by $this")
     }
 }
 
-fun singleThread(name: String, logger: Logger): CoroutineContext {
-    return newSingleThreadContext(name).plus(UncaughtCoroutineExceptionHandler(logger))
+fun singleThread(name: String): CoroutineContext {
+    return newSingleThreadContext(name).plus(UncaughtCoroutineExceptionHandler())
 }

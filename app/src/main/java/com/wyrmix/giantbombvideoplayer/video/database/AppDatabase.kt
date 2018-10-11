@@ -1,4 +1,4 @@
-package com.wyrmix.giantbombvideoplayer.video.models
+package com.wyrmix.giantbombvideoplayer.video.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

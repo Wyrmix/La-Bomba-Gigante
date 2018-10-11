@@ -1,3 +1,0 @@
-package com.wyrmix.giantbombvideoplayer.settings
-
-class SettingsHeaderItem

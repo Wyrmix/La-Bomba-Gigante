@@ -1,6 +1,7 @@
 package com.wyrmix.giantbombvideoplayer.video.models
 
 import com.google.gson.annotations.SerializedName
+import com.wyrmix.giantbombvideoplayer.video.database.VideoCategory
 
 data class VideoCategoryResult(
         @SerializedName("error") val error: String = "",

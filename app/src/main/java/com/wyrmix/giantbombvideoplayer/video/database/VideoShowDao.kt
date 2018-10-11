@@ -1,4 +1,4 @@
-package com.wyrmix.giantbombvideoplayer.video.models
+package com.wyrmix.giantbombvideoplayer.video.database
 
 import androidx.room.*
 
@@ -10,7 +10,7 @@ import androidx.room.*
     fun insertVideoShow(vararg videoShow: VideoShow): List<Long>
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun UpdateVideoShow(vararg videoShow: VideoShow): Int
+    fun updateVideoShow(vararg videoShow: VideoShow): Int
 
     @Delete
     fun deleteVideoShow(videoShow: VideoShow)

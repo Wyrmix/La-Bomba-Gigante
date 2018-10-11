@@ -4,7 +4,7 @@ import android.content.SharedPreferences
 import android.media.MediaPlayer
 import androidx.lifecycle.ViewModel
 import com.wyrmix.giantbombvideoplayer.auth.API_KEY
-import com.wyrmix.giantbombvideoplayer.video.models.Video
+import com.wyrmix.giantbombvideoplayer.video.database.Video
 
 typealias completion = MediaPlayer.OnCompletionListener
 typealias prepared = MediaPlayer.OnPreparedListener

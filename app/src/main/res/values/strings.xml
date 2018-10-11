@@ -20,39 +20,43 @@
 
     <string name="settings_section_account">Account</string>
     <string name="settings_description_account">Manage your premium authentication</string>
-    <string name="settings_section_appearance">Appearance</string>
-    <string name="settings_description_appearance">Change the look and feel of the app</string>
-    <string name="settings_section_notifications">Notifications</string>
-    <string name="settings_description_notifications">Manage notification settings</string>
-    <string name="settings_section_video">Video</string>
-    <string name="settings_description_video">Manage your playback settings</string>
-    <string name="settings_section_download">Download</string>
-    <string name="settings_description_download">Manage storage usage for downloads</string>
-
     <string name="settings_account_premium_title">Premium Account</string>
     <string name="settings_account_premium_subtitle">Launch authentication flow</string>
     <string name="pref_key_settings_account_premium">pref_key_settings_account_premium</string>
-
     <string name="settings_account_position_title">Sync Playback Position</string>
     <string name="settings_account_position_subtitle">Sync playback position to your account</string>
     <string name="pref_key_settings_account_position">pref_key_settings_account_position</string>
 
+    <string name="settings_section_appearance">Appearance</string>
+    <string name="settings_description_appearance">Change the look and feel of the app</string>
     <string name="settings_appearance_dark_title">Dark Mode</string>
     <string name="settings_appearance_dark_subtitle">Make the app dark, yo</string>
     <string name="pref_key_settings_appearance_dark">pref_key_settings_appearance_dark</string>
 
+    <string name="settings_section_notifications">Notifications</string>
+    <string name="settings_description_notifications">Manage notification settings</string>
     <string name="settings_notifications_system_title">Enable notifications</string>
     <string name="settings_notifications_system_subtitle">Go to system notification settings</string>
     <string name="pref_key_settings_notifications_system">pref_key_settings_notifications_system</string>
 
+    <string name="settings_section_video">Video</string>
+    <string name="settings_description_video">Manage your playback settings</string>
     <string name="settings_playback_pip_title">Picture in Picture</string>
     <string name="settings_playback_pip_subtitle">Enable or disable PiP</string>
     <string name="pref_key_settings_playback_pip">pref_key_settings_playback_pip</string>
-
     <string name="settings_playback_quality_title">Default Quality</string>
     <string name="settings_playback_quality_subtitle">The default quality setting for video playback</string>
     <string name="pref_key_settings_playback_quality">pref_key_settings_playback_quality</string>
 
+    <string-array name="quality_options">
+        <item>Low</item>
+        <item>High</item>
+        <item>HD</item>
+        <item>YouTube</item>
+    </string-array>
+
+    <string name="settings_section_download">Download</string>
+    <string name="settings_description_download">Manage storage usage for downloads</string>
     <string name="settings_downloads_space_title">Disk size limit</string>
     <string name="settings_downloads_space_subtitle">Set limits for how much space the app will use</string>
     <string name="pref_key_settings_downloads_space">pref_key_settings_downloads_space</string>

@@ -1,15 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
-        android:title="@string/settings_section_account"
-        android:key="pref_key_account_settings">
+        android:key="pref_key_account_settings"
+        android:summary="@string/settings_description_account"
+        android:title="@string/settings_section_account">
         <Preference
             android:key="@string/pref_key_settings_account_premium"
             android:summary="@string/settings_account_premium_subtitle"
             android:title="@string/settings_account_premium_title" />
-        <Preference
+        <SwitchPreference
             android:key="@string/pref_key_settings_account_position"
             android:summary="@string/settings_account_position_subtitle"
-            android:title="@string/settings_account_position_title" />
+            android:title="@string/settings_account_position_title"
+            android:defaultValue="true" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="pref_key_appearance_settings"
+        android:summary="@string/settings_description_appearance"
+        android:title="@string/settings_section_appearance">
+        <SwitchPreference
+            android:key="@string/pref_key_settings_appearance_dark"
+            android:summary="@string/settings_appearance_dark_subtitle"
+            android:title="@string/settings_appearance_dark_title"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="pref_key_notifications_settings"
+        android:summary="@string/settings_description_notifications"
+        android:title="@string/settings_section_notifications">
+        <Preference
+            android:key="@string/pref_key_settings_notifications_system"
+            android:summary="@string/settings_notifications_system_subtitle"
+            android:title="@string/settings_notifications_system_title" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="pref_key_video_settings"
+        android:summary="@string/settings_description_video"
+        android:title="@string/settings_section_video">
+        <SwitchPreference
+            android:key="@string/pref_key_settings_playback_pip"
+            android:summary="@string/settings_playback_pip_subtitle"
+            android:title="@string/settings_playback_pip_title"
+            android:defaultValue="true" />
+        <ListPreference
+            android:key="@string/pref_key_settings_playback_quality"
+            android:summary="@string/settings_playback_quality_subtitle"
+            android:title="@string/settings_playback_quality_title"
+            android:entries="@array/quality_options"
+            android:entryValues="@array/quality_options"
+            android:defaultValue="High" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="pref_key_downloads_settings"
+        android:summary="@string/settings_description_download"
+        android:title="@string/settings_section_download">
+        <EditTextPreference
+            android:key="@string/pref_key_settings_downloads_space"
+            android:summary="@string/settings_downloads_space_subtitle"
+            android:title="@string/settings_downloads_space_title"
+            android:inputType="number"
+            android:numeric="integer"
+            android:defaultValue="512"
+            />
     </PreferenceCategory>
 </PreferenceScreen>

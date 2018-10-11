@@ -9,16 +9,13 @@ import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.Coroutin
 import com.wyrmix.giantbombvideoplayer.auth.AuthenticationViewModel
 import com.wyrmix.giantbombvideoplayer.di.Context.BASE_URL
 import com.wyrmix.giantbombvideoplayer.di.Context.DISK_CACHE_SIZE
+import com.wyrmix.giantbombvideoplayer.video.database.AppDatabase
+import com.wyrmix.giantbombvideoplayer.video.database.Video
 import com.wyrmix.giantbombvideoplayer.video.details.VideoDetailsViewModel
 import com.wyrmix.giantbombvideoplayer.video.list.VideoBrowserViewModel
-import com.wyrmix.giantbombvideoplayer.video.models.AppDatabase
-import com.wyrmix.giantbombvideoplayer.video.models.Video
 import com.wyrmix.giantbombvideoplayer.video.network.ApiRepository
 import com.wyrmix.giantbombvideoplayer.video.network.GiantbombApiClient
 import com.wyrmix.giantbombvideoplayer.video.player.VideoPlayerViewModel
-import inkapplicaitons.android.logger.CompositeLogger
-import inkapplicaitons.android.logger.ConsoleLogger
-import inkapplicaitons.android.logger.Logger
 import io.palaima.debugdrawer.DebugDrawer
 import io.palaima.debugdrawer.actions.ActionsModule
 import io.palaima.debugdrawer.actions.ButtonAction
@@ -29,6 +26,9 @@ import io.palaima.debugdrawer.commons.SettingsModule
 import io.palaima.debugdrawer.logs.LogsModule
 import io.palaima.debugdrawer.network.quality.NetworkQualityModule
 import io.palaima.debugdrawer.okhttp3.OkHttp3Module
+import kotlinx.coroutines.experimental.Dispatchers
+import kotlinx.coroutines.experimental.GlobalScope
+import kotlinx.coroutines.experimental.launch
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -44,7 +44,6 @@ import java.io.File
  */
 val appModule = module {
         module("app") {
-            single { CompositeLogger(listOf(ConsoleLogger("GiantbombApp"))) } bind Logger::class
             single { get<android.content.Context>().getSharedPreferences("GiantbombApp", android.content.Context.MODE_PRIVATE) }
             single {
                 val httpClient = OkHttpClient.Builder()
@@ -76,12 +75,12 @@ val appModule = module {
             single { get<AppDatabase>().videoShow() }
 
             module("auth") {
-                viewModel { AuthenticationViewModel(get(), get(), get(), get()) }
+                viewModel { AuthenticationViewModel(get(), get(), get()) }
             }
 
             module("browse") {
                 single { ApiRepository(get(), get(), get(), get(), get()) }
-                viewModel { VideoBrowserViewModel(get(), get()) }
+                viewModel { VideoBrowserViewModel(get(), get(), get()) }
             }
 
             module("details") {
@@ -98,7 +97,13 @@ val appModule = module {
             }
 
             module("debug") {
-                single { (activity: Activity, listener: () -> Unit) ->
+                single { (activity: Activity) ->
+                    val listener: () -> Unit = {
+                        GlobalScope.launch(Dispatchers.Default) {
+                            get<AppDatabase>().clearAllTables()
+                        }
+                    }
+
                     DebugDrawer.Builder(activity)
                             .modules(
                                     ActionsModule(ButtonAction("Clear database", listener)),

@@ -1,9 +1,9 @@
-package com.wyrmix.giantbombvideoplayer.video.models
+package com.wyrmix.giantbombvideoplayer.video.database
 
 import android.os.Parcelable
 import androidx.room.*
 import com.google.gson.annotations.SerializedName
-import com.wyrmix.giantbombvideoplayer.video.list.VideoItem
+import com.wyrmix.giantbombvideoplayer.video.models.Image
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -30,7 +30,3 @@ data class Video(
         @ColumnInfo(name = "youtube_id") @SerializedName("youtube_id") var youtubeId: String? = "",
         @ColumnInfo(name = "saved_time") @SerializedName("saved_time") var savedTime: Float = 0.0f
 ): Parcelable
-
-fun Video?.toVideoItem(): VideoItem {
-    return VideoItem(this ?: Video())
-}

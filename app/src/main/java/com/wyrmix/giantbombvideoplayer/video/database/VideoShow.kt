@@ -1,8 +1,9 @@
-package com.wyrmix.giantbombvideoplayer.video.models
+package com.wyrmix.giantbombvideoplayer.video.database
 
 import android.os.Parcelable
 import androidx.room.*
 import com.google.gson.annotations.SerializedName
+import com.wyrmix.giantbombvideoplayer.video.models.Image
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize

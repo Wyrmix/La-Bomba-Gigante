@@ -1,4 +1,4 @@
-package com.wyrmix.giantbombvideoplayer.video.models
+package com.wyrmix.giantbombvideoplayer.video.database
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo

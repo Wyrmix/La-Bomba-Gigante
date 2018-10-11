@@ -20,6 +20,11 @@ import kotlinx.coroutines.experimental.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.Koin.Companion.logger
 
+/**
+ * Fragment that handles launching a Chrome tab to the Boxee auth endpoint
+ *
+ * Once a user navigates back to this page we'll get the item from their clipboard and save it
+ */
 class AuthenticationFragment: Fragment() {
 
     val authViewModel: AuthenticationViewModel by viewModel()

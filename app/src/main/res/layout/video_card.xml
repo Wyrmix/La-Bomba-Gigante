@@ -9,7 +9,7 @@
             type="android.view.View.OnClickListener"/>
         <variable
             name="video"
-            type="com.wyrmix.giantbombvideoplayer.video.models.Video"/>
+            type="com.wyrmix.giantbombvideoplayer.video.database.Video"/>
     </data>
 
     <androidx.cardview.widget.CardView
