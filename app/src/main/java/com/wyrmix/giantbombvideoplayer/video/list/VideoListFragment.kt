@@ -1,5 +1,7 @@
 package com.wyrmix.giantbombvideoplayer.video.list
 
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.transition.TransitionInflater
 import android.view.LayoutInflater
@@ -11,21 +13,22 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.util.LruCache
+import com.google.android.material.chip.Chip
 import com.wyrmix.giantbombvideoplayer.R
 import com.wyrmix.giantbombvideoplayer.databinding.FragmentVideoListBinding
-import kotlinx.coroutines.experimental.Dispatchers
-import kotlinx.coroutines.experimental.GlobalScope
-import kotlinx.coroutines.experimental.IO
-import kotlinx.coroutines.experimental.launch
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
 
 class VideoListFragment: Fragment() {
-    private val viewModel by viewModel<VideoBrowserViewModel>()
+    private val viewModel by sharedViewModel<VideoBrowseViewModel>()
+    val memCache by inject<LruCache<String, Bitmap>>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FragmentVideoListBinding.inflate(inflater, container, false)
 
+        Timber.i("viewModel $viewModel")
         binding.swipeToRefresh.setOnRefreshListener {
             viewModel.refresh()
         }
@@ -43,18 +46,22 @@ class VideoListFragment: Fragment() {
             adapter.submitList(pagedList)
         })
 
+        viewModel.videoTypes.observe(this@VideoListFragment, Observer { videoType ->
+            videoType.forEach {
+                val chip = Chip(context)
+                chip.text = it.title
+                chip.isCheckable = true
+
+                memCache.get(it.title)?.apply {
+                    chip.chipIcon = BitmapDrawable(resources, this)
+                }
+
+                chip.tag = it
+                binding.chipGroup.addView(chip)
+            }
+        })
+
         viewModel.showData()
-
-        GlobalScope.launch(Dispatchers.IO) {
-            val videos = viewModel.getVideos()
-            Timber.i("Videos [${videos.results.size}]")
-
-            val shows = viewModel.getVideoShows()
-            Timber.i("Shows [${shows.results.size}]")
-
-            val categories = viewModel.getVideoCategories()
-            Timber.i("Categories [${categories.results.size}]")
-        }
 
         return binding.root
     }

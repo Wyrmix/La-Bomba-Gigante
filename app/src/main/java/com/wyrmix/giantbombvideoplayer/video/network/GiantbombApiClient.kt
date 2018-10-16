@@ -1,6 +1,6 @@
 package com.wyrmix.giantbombvideoplayer.video.network
 
-import com.wyrmix.giantbombvideoplayer.video.models.Key
+import com.wyrmix.giantbombvideoplayer.video.models.AuthResponse
 import com.wyrmix.giantbombvideoplayer.video.models.VideoCategoryResult
 import com.wyrmix.giantbombvideoplayer.video.models.VideoResult
 import com.wyrmix.giantbombvideoplayer.video.models.VideoShowResult
@@ -17,10 +17,25 @@ interface GiantbombApiClient {
     ): Deferred<VideoResult>
 
     @GET("videos/")
+    fun getVideos(
+            @Query("api_key") apiKey: String,
+            @Query("format") format: String,
+            @Query("filter") filter: String
+    ): Deferred<VideoResult>
+
+    @GET("videos/")
     fun getVideosPaged(
             @Query("api_key") apiKey: String,
             @Query("format") format: String,
             @Query("offset") offset: Int
+    ): Deferred<VideoResult>
+
+    @GET("videos/")
+    fun getVideosPaged(
+            @Query("api_key") apiKey: String,
+            @Query("format") format: String,
+            @Query("offset") offset: Int,
+            @Query("filter") filter: String
     ): Deferred<VideoResult>
 
     @GET("video_shows/")
@@ -39,5 +54,5 @@ interface GiantbombApiClient {
     fun getApiKey(
             @Query("link_code") linkCode: String,
             @Query("format") format: String
-    ): Deferred<Key>
+    ): Deferred<AuthResponse>
 }

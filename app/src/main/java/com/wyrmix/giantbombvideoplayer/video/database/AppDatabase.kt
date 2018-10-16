@@ -5,17 +5,17 @@ import androidx.room.RoomDatabase
 
 @Database(
         entities = [
-//            VideoJoin::class,
+            VideoJoin::class,
             Video::class,
             VideoShow::class,
             VideoCategory::class
         ],
-        version = 3,
+        version = 7,
         exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun videoDao() : VideoDao
-//    abstract fun videoJoinDao(): VideoJoinDao
-    abstract fun videoShow(): VideoShowDao
-    abstract fun videoCategory(): VideoCategoryDao
+    abstract fun videoJoinDao(): VideoJoinDao
+    abstract fun videoShowDao(): VideoShowDao
+    abstract fun videoCategoryDao(): VideoCategoryDao
 }

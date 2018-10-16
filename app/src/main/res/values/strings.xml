@@ -82,4 +82,6 @@
     <string name="fast_forward">Fast forward</string>
     <string name="fast_rewind">Fast rewind</string>
     <string name="minimize">Minimize</string>
+    <string name="search_hint">Search</string>
+    <string name="filter">Filter</string>
 </resources>

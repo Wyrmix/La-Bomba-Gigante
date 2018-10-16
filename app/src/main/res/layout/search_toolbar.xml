@@ -1,0 +1,43 @@
+<androidx.appcompat.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/default_margin_quarter"
+    android:layout_marginEnd="@dimen/default_margin"
+    android:layout_marginLeft="@dimen/default_margin"
+    android:layout_marginRight="@dimen/default_margin"
+    android:layout_marginStart="@dimen/default_margin"
+    android:layout_marginTop="@dimen/default_margin"
+    android:background="@drawable/search_toolbar_bg"
+    android:elevation="4dp"
+    app:contentInsetStartWithNavigation="0dp">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/searchview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/search_hint"
+            android:inputType="text"
+            android:maxLines="1"
+            android:layout_marginEnd="@dimen/default_margin_two_and_a_half"
+            android:singleLine="true"/>
+
+        <ImageView
+            android:id="@+id/clear_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:visibility="gone"
+            app:srcCompat="@drawable/close_selector"
+            />
+
+    </FrameLayout>
+
+</androidx.appcompat.widget.Toolbar>

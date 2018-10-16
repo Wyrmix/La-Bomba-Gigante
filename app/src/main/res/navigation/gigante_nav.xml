@@ -20,11 +20,7 @@
         tools:layout="@layout/fragment_video_list" >
         <action
             android:id="@+id/action_video_list_fragment_to_videoDetailsFragment"
-            app:destination="@id/videoDetailsFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:destination="@id/videoDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/videoDetailsFragment"

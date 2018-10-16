@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".video.player.VideoViewActivity">
+
+    <item
+        android:id="@+id/action_search"
+        android:title="@string/search_hint"
+        android:actionLayout="@layout/search_view"
+        app:actionViewClass="com.paulrybitskyi.persistentsearchview.PersistentSearchView"
+        android:icon="@drawable/ic_magnify"
+        app:showAsAction="ifRoom|collapseActionView" />
+
+    <item
+        android:id="@+id/action_filter"
+        android:title="@string/filter"
+        android:icon="@drawable/ic_filter_variant"
+        app:showAsAction="ifRoom" />
+</menu>

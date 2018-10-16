@@ -1,7 +1,10 @@
 package com.wyrmix.giantbombvideoplayer.di
 
 import android.app.Activity
+import android.content.SharedPreferences
+import android.graphics.Bitmap
 import androidx.room.Room
+import com.bumptech.glide.util.LruCache
 import com.danikula.videocache.HttpProxyCacheServer
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.Gson
@@ -12,9 +15,10 @@ import com.wyrmix.giantbombvideoplayer.di.Context.DISK_CACHE_SIZE
 import com.wyrmix.giantbombvideoplayer.video.database.AppDatabase
 import com.wyrmix.giantbombvideoplayer.video.database.Video
 import com.wyrmix.giantbombvideoplayer.video.details.VideoDetailsViewModel
-import com.wyrmix.giantbombvideoplayer.video.list.VideoBrowserViewModel
+import com.wyrmix.giantbombvideoplayer.video.list.VideoBrowseViewModel
 import com.wyrmix.giantbombvideoplayer.video.network.ApiRepository
 import com.wyrmix.giantbombvideoplayer.video.network.GiantbombApiClient
+import com.wyrmix.giantbombvideoplayer.video.network.NetworkManager
 import com.wyrmix.giantbombvideoplayer.video.player.VideoPlayerViewModel
 import io.palaima.debugdrawer.DebugDrawer
 import io.palaima.debugdrawer.actions.ActionsModule
@@ -37,7 +41,9 @@ import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import timber.log.Timber
 import java.io.File
+
 
 /**
  * Koin main module
@@ -45,6 +51,7 @@ import java.io.File
 val appModule = module {
         module("app") {
             single { get<android.content.Context>().getSharedPreferences("GiantbombApp", android.content.Context.MODE_PRIVATE) }
+
             single {
                 val httpClient = OkHttpClient.Builder()
 
@@ -69,18 +76,35 @@ val appModule = module {
                         .build()
             }
             single { get<Retrofit>().create(GiantbombApiClient::class.java) } bind GiantbombApiClient::class
+
+            single { NetworkManager(get()) }
+
             single { Room.databaseBuilder(get(), AppDatabase::class.java, "LaBombaGigante").fallbackToDestructiveMigration().build() }
             single { get<AppDatabase>().videoDao() }
-            single { get<AppDatabase>().videoCategory() }
-            single { get<AppDatabase>().videoShow() }
+            single { get<AppDatabase>().videoCategoryDao() }
+            single { get<AppDatabase>().videoShowDao() }
+            single { get<AppDatabase>().videoJoinDao() }
+
+            single<LruCache<String, Bitmap>> {
+                object : LruCache<String, Bitmap>(1024) {
+                    override fun getSize(image: Bitmap?): Int {
+                        return image?.byteCount ?: 0
+                    }
+
+                    override fun get(key: String): Bitmap? {
+                        Timber.d("found hit in LRU cache for [$key]")
+                        return super.get(key)
+                    }
+                }
+            }
 
             module("auth") {
                 viewModel { AuthenticationViewModel(get(), get(), get()) }
             }
 
             module("browse") {
-                single { ApiRepository(get(), get(), get(), get(), get()) }
-                viewModel { VideoBrowserViewModel(get(), get(), get()) }
+                single { ApiRepository(get(), get(), get(), get(), get(), get()) }
+                viewModel { VideoBrowseViewModel(get(), get(), get(), get()) }
             }
 
             module("details") {
@@ -98,15 +122,25 @@ val appModule = module {
 
             module("debug") {
                 single { (activity: Activity) ->
-                    val listener: () -> Unit = {
+                    val dbListener: () -> Unit = {
                         GlobalScope.launch(Dispatchers.Default) {
                             get<AppDatabase>().clearAllTables()
                         }
                     }
 
+                    val prefsListener: () -> Unit = {
+                        get<SharedPreferences>().edit().clear().apply()
+                    }
+
+                    val filterListener: () -> Unit = {
+                        get<SharedPreferences>().edit().putStringSet("filter", null).apply()
+                    }
+
                     DebugDrawer.Builder(activity)
                             .modules(
-                                    ActionsModule(ButtonAction("Clear database", listener)),
+                                    ActionsModule(ButtonAction("Clear database", dbListener)),
+                                    ActionsModule(ButtonAction("Clear prefs", prefsListener)),
+                                    ActionsModule(ButtonAction("Clear filters", filterListener)),
                                     DeviceModule(),
                                     BuildModule(),
                                     NetworkModule(),

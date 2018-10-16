@@ -9,7 +9,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 @Entity(tableName = "video", indices = [ Index(name = "video_id", value = ["id"]) ])
 data class Video(
-        @PrimaryKey @SerializedName("id") var id: Int = 0,
+        @PrimaryKey @SerializedName("id") var id: Long = 0,
         @ColumnInfo(name = "api_detail_url") @SerializedName("api_detail_url") var apiDetailurl: String? = "",
         @ColumnInfo(name = "deck") @SerializedName("deck") var deck: String? = "",
         @ColumnInfo(name = "hd_url") @SerializedName("hd_url") var hdUrl: String? = "",
