@@ -11,10 +11,9 @@ import com.wyrmix.giantbombvideoplayer.video.database.VideoDao
 import com.wyrmix.giantbombvideoplayer.video.models.Listing
 import com.wyrmix.giantbombvideoplayer.video.models.NetworkState
 import com.wyrmix.giantbombvideoplayer.video.network.ApiRepository
-import kotlinx.coroutines.experimental.CoroutineScope
-import kotlinx.coroutines.experimental.Dispatchers
-import kotlinx.coroutines.experimental.IO
-import kotlinx.coroutines.experimental.async
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 
 class VideoRepository(
         val db: VideoDao,
@@ -77,7 +76,7 @@ class VideoRepository(
                     boundaryCallback.retryFailed()
                 },
                 refresh = {
-                    refreshTrigger.value = null
+                    refreshTrigger.value = Unit
                 },
                 refreshState = refreshState
         )

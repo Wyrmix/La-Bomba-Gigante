@@ -1,10 +1,10 @@
 package com.wyrmix.giantbombvideoplayer.base
 
-import kotlinx.coroutines.experimental.CoroutineExceptionHandler
-import kotlinx.coroutines.experimental.newSingleThreadContext
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.newSingleThreadContext
 import timber.log.Timber
-import kotlin.coroutines.experimental.AbstractCoroutineContextElement
-import kotlin.coroutines.experimental.CoroutineContext
+import kotlin.coroutines.AbstractCoroutineContextElement
+import kotlin.coroutines.CoroutineContext
 
 class UncaughtCoroutineExceptionHandler: CoroutineExceptionHandler, AbstractCoroutineContextElement(CoroutineExceptionHandler.Key) {
     override fun handleException(context: CoroutineContext, exception: Throwable) {

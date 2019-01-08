@@ -10,9 +10,9 @@ import com.wyrmix.giantbombvideoplayer.video.models.VideoResult
 import com.wyrmix.giantbombvideoplayer.video.models.VideoShowResult
 import com.wyrmix.giantbombvideoplayer.video.models.VideoType
 import com.wyrmix.giantbombvideoplayer.video.network.ApiRepository
-import kotlinx.coroutines.experimental.*
+import kotlinx.coroutines.*
 import okhttp3.OkHttpClient
-import kotlin.coroutines.experimental.CoroutineContext
+import kotlin.coroutines.CoroutineContext
 
 class VideoBrowseViewModel(
         private val videoDao: VideoDao,

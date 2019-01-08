@@ -5,14 +5,17 @@ import com.wyrmix.giantbombvideoplayer.video.database.*
 import com.wyrmix.giantbombvideoplayer.video.models.VideoCategoryResult
 import com.wyrmix.giantbombvideoplayer.video.models.VideoResult
 import com.wyrmix.giantbombvideoplayer.video.models.VideoShowResult
-import kotlinx.coroutines.experimental.*
-import kotlinx.coroutines.experimental.channels.ReceiveChannel
-import kotlinx.coroutines.experimental.channels.produce
-import kotlinx.coroutines.experimental.selects.select
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.channels.ReceiveChannel
+import kotlinx.coroutines.channels.produce
+import kotlinx.coroutines.selects.select
+import kotlinx.coroutines.withContext
 import timber.log.Timber
-import kotlin.coroutines.experimental.CoroutineContext
+import kotlin.coroutines.CoroutineContext
 
-const val defaultKey = "No Saved API Key"
+const val defaultKey = "c898bdc1fdc51458fefa517d0c336dbd1ec608ca"
 const val json = "json"
 
 /**
@@ -27,13 +30,10 @@ class ApiRepository(
         private val sharedPreferences: SharedPreferences,
         private val videoDao: VideoDao,
         private val videoShowDao: VideoShowDao,
-        private val videoCategoryDao: VideoCategoryDao,
-        private val videoJoinDao: VideoJoinDao
+        private val videoCategoryDao: VideoCategoryDao
 ): CoroutineScope {
 
     val key: String = sharedPreferences.getString("API_KEY", defaultKey) ?: defaultKey
-
-//    init { if (key == defaultKey) throw IllegalStateException("created repository instance without saving key to shared prefs") }
 
     suspend fun getVideoShows(): VideoShowResult {
         val db = produce {
@@ -109,7 +109,6 @@ class ApiRepository(
 
                 category?.apply { videoCategoryDao.insertVideoCategory(this) }
                 video.videoShow?.apply { videoShowDao.insertVideoShow(this) }
-                videoJoinDao.insert(VideoJoin(videoId = video.id, videoCategoryId = category?.id, videoShowId = video.videoShow?.id))
             }
         }
     }

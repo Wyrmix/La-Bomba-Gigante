@@ -7,4 +7,4 @@ import com.google.gson.annotations.SerializedName
  *
  * 10/15/2018 at 7:17 PM
  */
-data class AuthResponse(@SerializedName("api_key") var key: Key)
+data class AuthResponse(@SerializedName("api_key") var apiKey: String, @SerializedName("expires") var expires: Long)

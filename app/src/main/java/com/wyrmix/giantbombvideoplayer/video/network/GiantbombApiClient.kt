@@ -4,7 +4,7 @@ import com.wyrmix.giantbombvideoplayer.video.models.AuthResponse
 import com.wyrmix.giantbombvideoplayer.video.models.VideoCategoryResult
 import com.wyrmix.giantbombvideoplayer.video.models.VideoResult
 import com.wyrmix.giantbombvideoplayer.video.models.VideoShowResult
-import kotlinx.coroutines.experimental.Deferred
+import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 import retrofit2.http.Query
 

@@ -1,6 +1,6 @@
 package com.wyrmix.giantbombvideoplayer.video.search
 
-import kotlinx.coroutines.experimental.channels.Channel
+import kotlinx.coroutines.channels.Channel
 
 /**
  * Created by kylea

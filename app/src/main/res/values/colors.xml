@@ -11,6 +11,9 @@
   <color name="icons">#FFFFFF</color>
   <color name="divider">#BDBDBD</color>
 
+  <color name="success">#4CAF50</color>
+  <color name="failure">#e22925</color>
+
   <color name="contentContainerColor">#eeeeee</color>
   <color name="cardBackgroundColor">#ffffff</color>
   <color name="iconColor">#657786</color>

@@ -4,18 +4,24 @@ import android.app.Activity
 import android.content.SharedPreferences
 import android.graphics.Bitmap
 import androidx.room.Room
+import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.bumptech.glide.util.LruCache
 import com.danikula.videocache.HttpProxyCacheServer
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.Gson
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.CoroutineCallAdapterFactory
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.wyrmix.giantbombvideoplayer.R
 import com.wyrmix.giantbombvideoplayer.auth.AuthenticationViewModel
-import com.wyrmix.giantbombvideoplayer.di.Context.BASE_URL
-import com.wyrmix.giantbombvideoplayer.di.Context.DISK_CACHE_SIZE
+import com.wyrmix.giantbombvideoplayer.di.Companion.BASE_URL
+import com.wyrmix.giantbombvideoplayer.di.Companion.DISK_CACHE_SIZE
+import com.wyrmix.giantbombvideoplayer.di.Companion.parseRawJson
 import com.wyrmix.giantbombvideoplayer.video.database.AppDatabase
 import com.wyrmix.giantbombvideoplayer.video.database.Video
 import com.wyrmix.giantbombvideoplayer.video.details.VideoDetailsViewModel
 import com.wyrmix.giantbombvideoplayer.video.list.VideoBrowseViewModel
+import com.wyrmix.giantbombvideoplayer.video.models.VideoCategoryResult
+import com.wyrmix.giantbombvideoplayer.video.models.VideoShowResult
 import com.wyrmix.giantbombvideoplayer.video.network.ApiRepository
 import com.wyrmix.giantbombvideoplayer.video.network.GiantbombApiClient
 import com.wyrmix.giantbombvideoplayer.video.network.NetworkManager
@@ -30,9 +36,9 @@ import io.palaima.debugdrawer.commons.SettingsModule
 import io.palaima.debugdrawer.logs.LogsModule
 import io.palaima.debugdrawer.network.quality.NetworkQualityModule
 import io.palaima.debugdrawer.okhttp3.OkHttp3Module
-import kotlinx.coroutines.experimental.Dispatchers
-import kotlinx.coroutines.experimental.GlobalScope
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -42,7 +48,10 @@ import org.koin.dsl.module.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
+import java.io.ByteArrayOutputStream
 import java.io.File
+import java.io.IOException
+import java.util.concurrent.Executors
 
 
 /**
@@ -67,10 +76,11 @@ val appModule = module {
 
                 httpClient.build()
             }
+            single { Gson() }
             single {
                 Retrofit.Builder()
                         .baseUrl(BASE_URL)
-                        .addConverterFactory(GsonConverterFactory.create(Gson()))
+                        .addConverterFactory(GsonConverterFactory.create(get()))
                         .addCallAdapterFactory(CoroutineCallAdapterFactory())
                         .client(get())
                         .build()
@@ -79,11 +89,37 @@ val appModule = module {
 
             single { NetworkManager(get()) }
 
-            single { Room.databaseBuilder(get(), AppDatabase::class.java, "LaBombaGigante").fallbackToDestructiveMigration().build() }
+            single<RoomDatabase.Callback> {
+                object: RoomDatabase.Callback() {
+                    override fun onCreate(db: SupportSQLiteDatabase) {
+                        Timber.i("db created")
+                        super.onCreate(db)
+                        Executors.newSingleThreadScheduledExecutor().execute {
+                            Timber.i("seeding database")
+                            try {
+                                val appDb = get<AppDatabase>()
+                                val shows = get<Gson>().fromJson<VideoShowResult>(parseRawJson(get(), R.raw.video_shows), VideoShowResult::class.java)
+                                Timber.d("shows [$shows]")
+                                appDb.videoShowDao().insertVideoShow(*shows.results.toTypedArray())
+                                val categories = get<Gson>().fromJson<VideoCategoryResult>(parseRawJson(get(), R.raw.video_categories), VideoCategoryResult::class.java)
+                                Timber.d("categories [$categories]")
+                                appDb.videoCategoryDao().insertVideoCategory(*categories.results.toTypedArray())
+                            } catch (t: Throwable) {
+                                Timber.e(t)
+                            }
+                        }
+                    }
+                }
+            }
+            single {
+                Room.databaseBuilder(get(), AppDatabase::class.java, "LaBombaGigante")
+                    .fallbackToDestructiveMigration()
+                    .addCallback(get())
+                    .build()
+            }
             single { get<AppDatabase>().videoDao() }
             single { get<AppDatabase>().videoCategoryDao() }
             single { get<AppDatabase>().videoShowDao() }
-            single { get<AppDatabase>().videoJoinDao() }
 
             single<LruCache<String, Bitmap>> {
                 object : LruCache<String, Bitmap>(1024) {
@@ -103,7 +139,7 @@ val appModule = module {
             }
 
             module("browse") {
-                single { ApiRepository(get(), get(), get(), get(), get(), get()) }
+                single { ApiRepository(get(), get(), get(), get(), get()) }
                 viewModel { VideoBrowseViewModel(get(), get(), get(), get()) }
             }
 
@@ -157,7 +193,27 @@ val appModule = module {
 /**
  * Module constants
  */
-object Context {
+object Companion {
     const val BASE_URL = "https://www.giantbomb.com/api/"
     const val DISK_CACHE_SIZE = 50 * 1024 * 1024 // 50MB
+
+    fun parseRawJson(context: android.content.Context, resId: Int): String {
+
+        val inputStream = context.resources.openRawResource(resId)
+        val byteArrayOutputStream = ByteArrayOutputStream()
+
+        var ctr: Int
+        try {
+            ctr = inputStream.read()
+            while (ctr != -1) {
+                byteArrayOutputStream.write(ctr)
+                ctr = inputStream.read()
+            }
+            inputStream.close()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+
+        return byteArrayOutputStream.toString()
+    }
 }

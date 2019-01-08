@@ -1,18 +1,17 @@
 package com.wyrmix.giantbombvideoplayer
 
 import android.app.Application
-import android.graphics.Bitmap
 import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.util.LruCache
 import com.facebook.stetho.Stetho
 import com.github.s0nerik.glide_bindingadapter.GlideBindingConfig
 import com.wyrmix.giantbombvideoplayer.di.appModule
-import org.koin.android.ext.android.inject
 import org.koin.android.ext.android.startKoin
+import org.koin.standalone.KoinComponent
 import timber.log.Timber
 
 
-class GiantbombApp : Application() {
+class GiantbombApp : Application(), KoinComponent {
+
     override fun onCreate() {
         super.onCreate()
 

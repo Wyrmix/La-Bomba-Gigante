@@ -1,8 +1,11 @@
 package com.wyrmix.giantbombvideoplayer.extension
 
+import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
-import android.app.Activity
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import androidx.core.content.ContextCompat
 
 /**
  * Context extension methods
@@ -16,6 +19,25 @@ fun Context.getActivity(): Activity? {
             return context
         }
         context = context.baseContext
+    }
+    return null
+}
+
+fun Context.generateBitmapFromRes(resId: Int): Bitmap? {
+    val drawable = ContextCompat.getDrawable(this, resId)
+    drawable?.apply {
+        setBounds(
+                0,
+                0,
+                intrinsicWidth,
+                intrinsicHeight)
+        val bitmap = Bitmap.createBitmap(
+                intrinsicWidth,
+                intrinsicHeight,
+                Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        drawable.draw(canvas)
+        return bitmap
     }
     return null
 }

@@ -1,5 +1,6 @@
 package com.wyrmix.giantbombvideoplayer
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.Point
@@ -9,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
@@ -26,25 +28,29 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.wyrmix.giantbombvideoplayer.databinding.ActivityMainBinding
 import com.wyrmix.giantbombvideoplayer.extension.navigateUp
+import com.wyrmix.giantbombvideoplayer.onboarding.OnboardingActivity
 import com.wyrmix.giantbombvideoplayer.video.list.VideoBrowseViewModel
 import com.wyrmix.giantbombvideoplayer.video.models.VideoType
 import com.wyrmix.giantbombvideoplayer.video.network.ApiRepository
 import io.palaima.debugdrawer.DebugDrawer
-import kotlinx.coroutines.experimental.Dispatchers
-import kotlinx.coroutines.experimental.GlobalScope
-import kotlinx.coroutines.experimental.IO
-import kotlinx.coroutines.experimental.android.Main
-import kotlinx.coroutines.experimental.async
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import timber.log.Timber
 
+const val REQUEST_CODE_ONBOARDING = 666
+const val RESULT_FAILURE = 0
+const val RESULT_SUCCESS = 1
+
 /**
  * garbage activity to launch into different parts of the app during development
  */
 class MainActivity : AppCompatActivity() {
+
     val apiRepository by inject<ApiRepository>()
     val sharedPrefs by inject<SharedPreferences>()
     val viewModel by viewModel<VideoBrowseViewModel>()
@@ -52,6 +58,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if (!sharedPrefs.getBoolean(getString(R.string.user_has_completed_onboarding), false)) {
+            val intent = Intent(this, OnboardingActivity::class.java)
+            startActivityForResult(intent, REQUEST_CODE_ONBOARDING)
+        }
 
         Timber.i("viewModel $viewModel")
 
@@ -73,6 +84,21 @@ class MainActivity : AppCompatActivity() {
         viewModel.fetchCategoriesAndShows()
 
         get<DebugDrawer> { parametersOf(this) }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_CODE_ONBOARDING) {
+            if (resultCode == RESULT_SUCCESS) {
+                sharedPrefs.edit().putBoolean(getString(R.string.user_has_completed_onboarding), true).apply()
+            }
+
+            if (resultCode == RESULT_FAILURE) {
+                sharedPrefs.edit().putBoolean(getString(R.string.user_has_completed_onboarding), false).apply()
+                Toast.makeText(this, "Please complete onboarding and sign in", Toast.LENGTH_LONG).show()
+                startActivityForResult(intent, REQUEST_CODE_ONBOARDING)
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

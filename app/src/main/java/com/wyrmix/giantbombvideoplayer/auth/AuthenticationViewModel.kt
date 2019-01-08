@@ -18,7 +18,7 @@ class AuthenticationViewModel(app: Application, private val sharedPrefs: SharedP
         try {
             val data = apiClient.getApiKey(authCode, "json").await()
             Timber.d("Api key [$data]")
-            sharedPrefs.edit().putString(API_KEY, data.key.apiKey).apply()
+            sharedPrefs.edit().putString(API_KEY, data.apiKey).apply()
             result = true
         } catch (t: Throwable) {
             Timber.e(t, "error getting API key")
@@ -27,5 +27,5 @@ class AuthenticationViewModel(app: Application, private val sharedPrefs: SharedP
         return result
     }
 
-    fun getApiKey(): String = sharedPrefs.getString(API_KEY, "No Saved API Key") ?: ""
+    fun getApiKey(): String = sharedPrefs.getString(API_KEY, "c898bdc1fdc51458fefa517d0c336dbd1ec608ca") ?: ""
 }
