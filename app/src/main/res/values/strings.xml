@@ -11,6 +11,8 @@
     <string name="auth_url">http://www.giantbomb.com/boxee/</string>
     <string name="api_key_request">https://www.giantbomb.com/api/validate?link_code=</string>
 
+    <string name="slide_policy_explanation">You cannot use the app without signing in</string>
+
     <string name="title_activity_video_detail">VideoDetailActivity</string>
     <string name="title_activity_video_web_view">WebViewActivity</string>
     <string name="title_activity_authentication">Authenticate</string>
@@ -49,6 +51,15 @@
     <string name="settings_playback_quality_title">Default Quality</string>
     <string name="settings_playback_quality_subtitle">The default quality setting for video playback</string>
     <string name="pref_key_settings_playback_quality">pref_key_settings_playback_quality</string>
+    <string name="settings_download_private_title">Download Location</string>
+    <string name="settings_download_private_subtitle">Chose between saving files private to the app, the Movie directory, or the Downloads directory</string>
+    <string name="pref_key_settings_download_private">pref_key_settings_download_private</string>
+
+    <string-array name="download_locations">
+        <item>Private</item>
+        <item>Movies</item>
+        <item>Downloads</item>
+    </string-array>
 
     <string-array name="quality_options">
         <item>Low</item>

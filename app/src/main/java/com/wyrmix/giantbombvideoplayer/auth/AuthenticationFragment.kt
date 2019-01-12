@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+import com.github.paolorotolo.appintro.ISlidePolicy
 import com.google.android.material.snackbar.Snackbar
 import com.wyrmix.giantbombvideoplayer.R
 import com.wyrmix.giantbombvideoplayer.databinding.FragmentAuthenticationBinding
@@ -28,11 +29,13 @@ import timber.log.Timber
  *
  * Once a user navigates back to this page we'll get the item from their clipboard and save it
  */
-class AuthenticationFragment: Fragment() {
+class AuthenticationFragment: Fragment(), ISlidePolicy {
 
-    val authViewModel: AuthenticationViewModel by viewModel()
-    var progressButton: CircularProgressButton? = null
-    var margin: Int = 0
+    private var margin: Int = 192
+
+    private val authViewModel: AuthenticationViewModel by viewModel()
+
+    private var progressButton: CircularProgressButton? = null
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -50,7 +53,7 @@ class AuthenticationFragment: Fragment() {
         }
 
         progressButton = binding.buttonAuthenticaion
-        binding.buttonAuthenticaion.setOnClickListener { _ ->
+        binding.buttonAuthenticaion.setOnClickListener {
             binding.buttonAuthenticaion.startAnimation()
 
             var authCodeText = binding.editTextAuthCode.text.toString().trim { it <= ' ' }
@@ -100,5 +103,13 @@ class AuthenticationFragment: Fragment() {
 
         snackBarView.layoutParams = params
         snackbar.show()
+    }
+
+    override fun isPolicyRespected() = authViewModel.userHasSavedApiKey()
+
+    override fun onUserIllegallyRequestedNextPage() {
+        view?.apply {
+            displaySnackBarWithBottomMargin(Snackbar.make(this, getString(R.string.slide_policy_explanation), Snackbar.LENGTH_LONG), 0, margin)
+        }
     }
 }

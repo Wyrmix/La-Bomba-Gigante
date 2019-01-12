@@ -28,4 +28,6 @@ class AuthenticationViewModel(app: Application, private val sharedPrefs: SharedP
     }
 
     fun getApiKey(): String = sharedPrefs.getString(API_KEY, "c898bdc1fdc51458fefa517d0c336dbd1ec608ca") ?: ""
+
+    fun userHasSavedApiKey() = sharedPrefs.contains(API_KEY)
 }

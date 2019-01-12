@@ -15,6 +15,7 @@ import kotlinx.coroutines.withContext
 import timber.log.Timber
 import kotlin.coroutines.CoroutineContext
 
+// fake account made for a key, don't get it banned but not a huge deal
 const val defaultKey = "c898bdc1fdc51458fefa517d0c336dbd1ec608ca"
 const val json = "json"
 

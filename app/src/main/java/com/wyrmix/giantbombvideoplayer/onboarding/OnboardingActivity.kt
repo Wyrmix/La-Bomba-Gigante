@@ -1,5 +1,7 @@
 package com.wyrmix.giantbombvideoplayer.onboarding
 
+import android.Manifest
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.core.content.ContextCompat
@@ -8,7 +10,6 @@ import com.github.paolorotolo.appintro.AppIntro
 import com.github.paolorotolo.appintro.AppIntroFragment
 import com.github.paolorotolo.appintro.model.SliderPage
 import com.wyrmix.giantbombvideoplayer.R
-import com.wyrmix.giantbombvideoplayer.REQUEST_CODE_ONBOARDING
 import com.wyrmix.giantbombvideoplayer.auth.AuthenticationFragment
 import timber.log.Timber
 
@@ -40,8 +41,15 @@ class OnboardingActivity : AppIntro() {
         addSlide(AppIntroFragment.newInstance(authPage))
 
         val authFrag = AuthenticationFragment()
-        authFrag.margin = 192
         addSlide(authFrag)
+
+        val permissionsPage = SliderPage()
+        permissionsPage.title = "Permissions"
+        permissionsPage.description = "This app optionally downloads videos to public folders like Movies or Downloads. You can change this later in the settings"
+        permissionsPage.imageDrawable = R.drawable.ic_file
+        permissionsPage.bgColor = ContextCompat.getColor(this, R.color.primaryLightColor)
+        addSlide(AppIntroFragment.newInstance(permissionsPage))
+        askForPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE), 5)
 
         showSkipButton(false)
         isProgressButtonEnabled = true
@@ -51,7 +59,7 @@ class OnboardingActivity : AppIntro() {
         super.onDonePressed(currentFragment)
         val data = Intent()
         data.putExtra(getString(R.string.user_has_completed_onboarding), true)
-        setResult(REQUEST_CODE_ONBOARDING, data)
+        setResult(Activity.RESULT_OK, data)
         finish()
     }
 

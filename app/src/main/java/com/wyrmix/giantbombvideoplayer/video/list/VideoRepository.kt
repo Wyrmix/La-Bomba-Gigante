@@ -14,6 +14,7 @@ import com.wyrmix.giantbombvideoplayer.video.network.ApiRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.plus
 
 class VideoRepository(
         val db: VideoDao,
@@ -36,7 +37,7 @@ class VideoRepository(
         val networkState = MutableLiveData<NetworkState>()
         networkState.value = NetworkState.LOADING
 
-        scope.async(Dispatchers.IO) {
+        scope + scope.async(Dispatchers.IO) {
             api.getVideos()
         }
 
@@ -45,7 +46,7 @@ class VideoRepository(
     }
 
     /**
-     * Returns a Listing for the given subreddit.
+     * Returns a listing of videos
      */
     @MainThread
     fun videos(): Listing<Video> {

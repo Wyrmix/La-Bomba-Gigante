@@ -1,5 +1,6 @@
 package com.wyrmix.giantbombvideoplayer
 
+import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Bitmap
@@ -88,14 +89,16 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        Timber.d("onActivityResult($requestCode: Int, $resultCode: Int, $data: Intent?)")
         if (requestCode == REQUEST_CODE_ONBOARDING) {
-            if (resultCode == RESULT_SUCCESS) {
+            if (resultCode == Activity.RESULT_OK) {
                 sharedPrefs.edit().putBoolean(getString(R.string.user_has_completed_onboarding), true).apply()
             }
 
-            if (resultCode == RESULT_FAILURE) {
+            if (resultCode == Activity.RESULT_CANCELED) {
                 sharedPrefs.edit().putBoolean(getString(R.string.user_has_completed_onboarding), false).apply()
                 Toast.makeText(this, "Please complete onboarding and sign in", Toast.LENGTH_LONG).show()
+                val intent = Intent(this, OnboardingActivity::class.java)
                 startActivityForResult(intent, REQUEST_CODE_ONBOARDING)
             }
         }

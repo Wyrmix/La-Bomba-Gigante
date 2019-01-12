@@ -11,6 +11,9 @@ interface VideoDao {
     @Query("SELECT * FROM video")
     fun selectPaged(): DataSource.Factory<Int, Video>
 
+    @Query("SELECT * FROM video WHERE video.id is :id")
+    fun getVideoById(id: Long): Video
+
     @Query("SELECT COUNT(*) FROM video")
     fun getNumberOfRows(): Int
 

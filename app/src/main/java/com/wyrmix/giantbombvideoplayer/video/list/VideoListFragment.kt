@@ -35,7 +35,7 @@ class VideoListFragment: Fragment() {
         val adapter = VideoListAdapter { video, view ->
             video?.apply {
                 val extras = FragmentNavigatorExtras(view.findViewById<AppCompatImageView>(R.id.video_thumbnail) to view.transitionName)
-                val action = VideoListFragmentDirections.actionVideoListFragmentToVideoDetailsFragment(video)
+                val action = VideoListFragmentDirections.actionVideoListFragmentToVideoDetailsFragment(video, null)
                 TransitionInflater.from(context).inflateTransition(R.transition.change_bounds).addTarget(view.findViewById<AppCompatImageView>(R.id.video_thumbnail))
                 binding.root.findNavController().navigate(action, extras)
             }

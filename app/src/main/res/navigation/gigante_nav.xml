@@ -30,6 +30,10 @@
         <argument
             android:name="video"
             app:argType="com.wyrmix.giantbombvideoplayer.video.database.Video" />
+        <argument
+            android:name="download"
+            app:nullable="true"
+            app:argType="com.tonyodev.fetch2.Download" />
         <action
             android:id="@+id/action_videoDetailsFragment_to_video_view_fragment"
             app:destination="@id/video_view_fragment"
@@ -66,7 +70,7 @@
     </activity>
     <fragment
         android:id="@+id/downloads_fragment"
-        android:name="com.wyrmix.giantbombvideoplayer.downloads.DownloadsFragment"
+        android:name="com.wyrmix.giantbombvideoplayer.video.downloads.DownloadsFragment"
         android:label="DownloadsFragment"
         tools:layout="@layout/fragment_downloads">
         <action

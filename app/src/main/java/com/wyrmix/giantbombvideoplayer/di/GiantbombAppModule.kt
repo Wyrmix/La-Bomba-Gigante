@@ -3,6 +3,7 @@ package com.wyrmix.giantbombvideoplayer.di
 import android.app.Activity
 import android.content.SharedPreferences
 import android.graphics.Bitmap
+import android.os.Environment
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
@@ -11,6 +12,11 @@ import com.danikula.videocache.HttpProxyCacheServer
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.Gson
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.tonyodev.fetch2.Download
+import com.tonyodev.fetch2.Fetch
+import com.tonyodev.fetch2.FetchConfiguration
+import com.tonyodev.fetch2okhttp.OkHttpDownloader
+import com.tonyodev.fetch2rx.RxFetch
 import com.wyrmix.giantbombvideoplayer.R
 import com.wyrmix.giantbombvideoplayer.auth.AuthenticationViewModel
 import com.wyrmix.giantbombvideoplayer.di.Companion.BASE_URL
@@ -19,6 +25,9 @@ import com.wyrmix.giantbombvideoplayer.di.Companion.parseRawJson
 import com.wyrmix.giantbombvideoplayer.video.database.AppDatabase
 import com.wyrmix.giantbombvideoplayer.video.database.Video
 import com.wyrmix.giantbombvideoplayer.video.details.VideoDetailsViewModel
+import com.wyrmix.giantbombvideoplayer.video.downloads.DownloadNotificationManager
+import com.wyrmix.giantbombvideoplayer.video.downloads.DownloadsViewModel
+import com.wyrmix.giantbombvideoplayer.video.downloads.VideoDownload
 import com.wyrmix.giantbombvideoplayer.video.list.VideoBrowseViewModel
 import com.wyrmix.giantbombvideoplayer.video.models.VideoCategoryResult
 import com.wyrmix.giantbombvideoplayer.video.models.VideoShowResult
@@ -76,6 +85,23 @@ val appModule = module {
 
                 httpClient.build()
             }
+
+            single {
+                FetchConfiguration.Builder(get())
+                .setDownloadConcurrentLimit(10)
+                .setNotificationManager(DownloadNotificationManager(get()))
+                .setHttpDownloader(OkHttpDownloader(get<OkHttpClient>()))
+                .build()
+            }
+
+            single {
+                RxFetch.getRxInstance(get())
+            }
+
+            single {
+                Fetch.getInstance(get())
+            }
+
             single { Gson() }
             single {
                 Retrofit.Builder()
@@ -144,7 +170,14 @@ val appModule = module {
             }
 
             module("details") {
-                viewModel { (video: Video) -> VideoDetailsViewModel(video, get()) }
+                viewModel { (videoDownload: VideoDownload) ->
+                    val downloadLocationKey = get<android.content.Context>().getString(R.string.pref_key_settings_download_private)
+                    VideoDetailsViewModel(videoDownload.video, videoDownload.download, get(), get(), get(), downloadLocationKey, get<android.content.Context>().getExternalFilesDir(Environment.DIRECTORY_MOVIES)!!.path)
+                }
+            }
+
+            module("downloads") {
+                viewModel { DownloadsViewModel(get(), get(), get(), get()) }
             }
 
             module("playback") {
