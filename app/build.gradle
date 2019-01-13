@@ -28,14 +28,9 @@ android {
             applicationIdSuffix '.debug'
             debuggable true
         }
-        qa {
-            signingConfig signingConfigs.debug
-            minifyEnabled false
-            applicationIdSuffix '.qa'
-        }
         release {
             signingConfig signingConfigs.debug
-            minifyEnabled true
+            minifyEnabled false
         }
     }
 
@@ -102,8 +97,10 @@ dependencies {
 
     debugImplementation 'com.github.kylealanr.DebugDrawer:debugdrawer:master-SNAPSHOT'
     releaseImplementation 'com.github.kylealanr.DebugDrawer:debugdrawer-no-op:master-SNAPSHOT'
+    testImplementation 'com.github.kylealanr.DebugDrawer:debugdrawer-no-op:master-SNAPSHOT'
     debugImplementation 'com.github.kylealanr.DebugDrawer:debugdrawer-view:master-SNAPSHOT'
     releaseImplementation 'com.github.kylealanr.DebugDrawer:debugdrawer-view-no-op:master-SNAPSHOT'
+    testImplementation 'com.github.kylealanr.DebugDrawer:debugdrawer-view-no-op:master-SNAPSHOT'
     implementation 'com.github.kylealanr.DebugDrawer:debugdrawer-scalpel:master-SNAPSHOT'
     implementation 'com.github.kylealanr.DebugDrawer:debugdrawer-network-quality:master-SNAPSHOT'
     implementation 'com.github.kylealanr.DebugDrawer:debugdrawer-glide:master-SNAPSHOT'
@@ -169,6 +166,10 @@ dependencies {
     testImplementation("com.nhaarman:mockito-kotlin:1.4.0") {
         exclude group: "org.jetbrains.kotlin", module: "kotlin-stdlib"
     }
+    testCompile 'org.koin:koin-test:1.0.1'
+    testCompile 'net.lachlanmckee:timber-junit-rule:1.0.1'
+    testCompile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.25'
+
 
     testImplementation 'joda-time:joda-time:2.9.9'
 }

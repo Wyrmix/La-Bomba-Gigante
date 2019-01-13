@@ -71,7 +71,7 @@
     <string name="settings_section_download">Download</string>
     <string name="settings_description_download">Manage storage usage for downloads</string>
     <string name="settings_downloads_space_title">Disk size limit</string>
-    <string name="settings_downloads_space_subtitle">Set limits for how much space the app will use</string>
+    <string name="settings_downloads_space_subtitle">Set limits for how much space the app will use for caching. This does not affect manual downloads.</string>
     <string name="pref_key_settings_downloads_space">pref_key_settings_downloads_space</string>
 
     <string-array name="navigation_drawer_items">
