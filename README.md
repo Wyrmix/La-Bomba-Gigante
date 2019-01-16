@@ -6,7 +6,7 @@
 
 ## Screenshots
 
-![Video App]("/play_store/phone_screenshots/Screenshot_20190115-181054.png")
+![Video App](/play_store/phone_screenshots/Screenshot_20190115-181054.png?raw=true "Video App")
 
 ![Picture in Picture]("/play_store/phone_screenshots/Screenshot_20190115-181059.png")
 
