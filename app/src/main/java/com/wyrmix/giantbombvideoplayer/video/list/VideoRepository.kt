@@ -11,10 +11,10 @@ import com.wyrmix.giantbombvideoplayer.video.database.VideoDao
 import com.wyrmix.giantbombvideoplayer.video.models.Listing
 import com.wyrmix.giantbombvideoplayer.video.models.NetworkState
 import com.wyrmix.giantbombvideoplayer.video.network.ApiRepository
-import kotlinx.coroutines.experimental.CoroutineScope
-import kotlinx.coroutines.experimental.Dispatchers
-import kotlinx.coroutines.experimental.IO
-import kotlinx.coroutines.experimental.async
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.plus
 
 class VideoRepository(
         val db: VideoDao,
@@ -37,7 +37,7 @@ class VideoRepository(
         val networkState = MutableLiveData<NetworkState>()
         networkState.value = NetworkState.LOADING
 
-        scope.async(Dispatchers.IO) {
+        scope + scope.async(Dispatchers.IO) {
             api.getVideos()
         }
 
@@ -46,7 +46,7 @@ class VideoRepository(
     }
 
     /**
-     * Returns a Listing for the given subreddit.
+     * Returns a listing of videos
      */
     @MainThread
     fun videos(): Listing<Video> {
@@ -77,7 +77,7 @@ class VideoRepository(
                     boundaryCallback.retryFailed()
                 },
                 refresh = {
-                    refreshTrigger.value = null
+                    refreshTrigger.value = Unit
                 },
                 refreshState = refreshState
         )

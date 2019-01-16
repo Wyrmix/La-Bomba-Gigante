@@ -1,13 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="primaryColor">#373b3e</color>
-  <color name="primaryLightColor">#616568</color>
-  <color name="primaryDarkColor">#111518</color>
-  <color name="secondaryColor">#e22925</color>
-  <color name="secondaryLightColor">#ff644f</color>
-  <color name="secondaryDarkColor">#a80000</color>
-  <color name="primaryTextColor">#ffffff</color>
-  <color name="secondaryTextColor">#ffffff</color>
-  <color name="icons">#FFFFFF</color>
-  <color name="divider">#BDBDBD</color>
+    <color name="primaryColor">#373b3e</color>
+    <color name="primaryLightColor">#616568</color>
+    <color name="primaryDarkColor">#111518</color>
+    <color name="secondaryColor">#e22925</color>
+    <color name="secondaryLightColor">#ff644f</color>
+    <color name="secondaryDarkColor">#a80000</color>
+    <color name="primaryTextColor">#ffffff</color>
+    <color name="secondaryTextColor">#ffffff</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#BDBDBD</color>
+
+    <color name="success">#4CAF50</color>
+    <color name="failure">#e22925</color>
+
+    <color name="contentContainerColor">#eeeeee</color>
+    <color name="cardBackgroundColor">#ffffff</color>
+    <color name="iconColor">#657786</color>
+    <color name="dividerColor">#657786</color>
+    <color name="suggestionIconColor">#657786</color>
+    <color name="suggestionTextColor">#657786</color>
+    <color name="suggestionSelectedTextColor">#212121</color>
+    <color name="background_gradient_start">#000000</color>
+    <color name="background_gradient_end">#DDDDDD</color>
+    <color name="fastlane_background">#0096a6</color>
+    <color name="search_opaque">#ffaa3f</color>
+    <color name="selected_background">#ffaa3f</color>
+    <color name="default_background">#3d3d3d</color>
 </resources>

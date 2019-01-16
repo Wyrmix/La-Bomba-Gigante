@@ -1,0 +1,220 @@
+{
+  "error": "OK",
+  "limit": 100,
+  "offset": 0,
+  "number_of_page_results": 11,
+  "number_of_total_results": 11,
+  "status_code": 1,
+  "results": [
+    {
+      "api_detail_url": "https://www.giantbomb.com/api/video_category/20/",
+      "site_detail_url": "https://www.giantbomb.com/videos/best-of-giant-bomb/",
+      "deck": "The very best of Giant Bomb",
+      "id": 20,
+      "name": "Best of Giant Bomb",
+      "image": {
+        "icon_url": "https://www.giantbomb.com/api/image/square_avatar/2853576-gblogo.png",
+        "medium_url": "https://www.giantbomb.com/api/image/scale_medium/2853576-gblogo.png",
+        "screen_url": "https://www.giantbomb.com/api/image/screen_medium/2853576-gblogo.png",
+        "screen_large_url": "https://www.giantbomb.com/api/image/screen_kubrick/2853576-gblogo.png",
+        "small_url": "https://www.giantbomb.com/api/image/scale_small/2853576-gblogo.png",
+        "super_url": "https://www.giantbomb.com/api/image/scale_large/2853576-gblogo.png",
+        "thumb_url": "https://www.giantbomb.com/api/image/scale_avatar/2853576-gblogo.png",
+        "tiny_url": "https://www.giantbomb.com/api/image/square_mini/2853576-gblogo.png",
+        "original_url": "https://www.giantbomb.com/api/image/original/2853576-gblogo.png",
+        "image_tags": "All Images"
+      }
+    },
+    {
+      "api_detail_url": "https://www.giantbomb.com/api/video_category/5/",
+      "site_detail_url": "https://www.giantbomb.com/videos/endurance-run/",
+      "deck": "We're going to play through an entire game start to finish! You can watch us, if that's your thing!",
+      "id": 5,
+      "name": "Endurance Run",
+      "image": {
+        "icon_url": "https://www.giantbomb.com/api/image/square_avatar/2853576-gblogo.png",
+        "medium_url": "https://www.giantbomb.com/api/image/scale_medium/2853576-gblogo.png",
+        "screen_url": "https://www.giantbomb.com/api/image/screen_medium/2853576-gblogo.png",
+        "screen_large_url": "https://www.giantbomb.com/api/image/screen_kubrick/2853576-gblogo.png",
+        "small_url": "https://www.giantbomb.com/api/image/scale_small/2853576-gblogo.png",
+        "super_url": "https://www.giantbomb.com/api/image/scale_large/2853576-gblogo.png",
+        "thumb_url": "https://www.giantbomb.com/api/image/scale_avatar/2853576-gblogo.png",
+        "tiny_url": "https://www.giantbomb.com/api/image/square_mini/2853576-gblogo.png",
+        "original_url": "https://www.giantbomb.com/api/image/original/2853576-gblogo.png",
+        "image_tags": "All Images"
+      }
+    },
+    {
+      "api_detail_url": "https://www.giantbomb.com/api/video_category/6/",
+      "site_detail_url": "https://www.giantbomb.com/videos/events/",
+      "deck": "The biggest shows and conferences in video games, covered in style by Giant Bomb.",
+      "id": 6,
+      "name": "Events",
+      "image": {
+        "icon_url": "https://www.giantbomb.com/api/image/square_avatar/2853576-gblogo.png",
+        "medium_url": "https://www.giantbomb.com/api/image/scale_medium/2853576-gblogo.png",
+        "screen_url": "https://www.giantbomb.com/api/image/screen_medium/2853576-gblogo.png",
+        "screen_large_url": "https://www.giantbomb.com/api/image/screen_kubrick/2853576-gblogo.png",
+        "small_url": "https://www.giantbomb.com/api/image/scale_small/2853576-gblogo.png",
+        "super_url": "https://www.giantbomb.com/api/image/scale_large/2853576-gblogo.png",
+        "thumb_url": "https://www.giantbomb.com/api/image/scale_avatar/2853576-gblogo.png",
+        "tiny_url": "https://www.giantbomb.com/api/image/square_mini/2853576-gblogo.png",
+        "original_url": "https://www.giantbomb.com/api/image/original/2853576-gblogo.png",
+        "image_tags": "All Images"
+      }
+    },
+    {
+      "api_detail_url": "https://www.giantbomb.com/api/video_category/11/",
+      "site_detail_url": "https://www.giantbomb.com/videos/extra-life/",
+      "deck": "The kids!",
+      "id": 11,
+      "name": "Extra Life",
+      "image": {
+        "icon_url": "https://www.giantbomb.com/api/image/square_avatar/2853576-gblogo.png",
+        "medium_url": "https://www.giantbomb.com/api/image/scale_medium/2853576-gblogo.png",
+        "screen_url": "https://www.giantbomb.com/api/image/screen_medium/2853576-gblogo.png",
+        "screen_large_url": "https://www.giantbomb.com/api/image/screen_kubrick/2853576-gblogo.png",
+        "small_url": "https://www.giantbomb.com/api/image/scale_small/2853576-gblogo.png",
+        "super_url": "https://www.giantbomb.com/api/image/scale_large/2853576-gblogo.png",
+        "thumb_url": "https://www.giantbomb.com/api/image/scale_avatar/2853576-gblogo.png",
+        "tiny_url": "https://www.giantbomb.com/api/image/square_mini/2853576-gblogo.png",
+        "original_url": "https://www.giantbomb.com/api/image/original/2853576-gblogo.png",
+        "image_tags": "All Images"
+      }
+    },
+    {
+      "api_detail_url": "https://www.giantbomb.com/api/video_category/8/",
+      "site_detail_url": "https://www.giantbomb.com/videos/features/",
+      "deck": "Exclusive video content you'll only find on Giant Bomb.",
+      "id": 8,
+      "name": "Features",
+      "image": {
+        "icon_url": "https://www.giantbomb.com/api/image/square_avatar/2853576-gblogo.png",
+        "medium_url": "https://www.giantbomb.com/api/image/scale_medium/2853576-gblogo.png",
+        "screen_url": "https://www.giantbomb.com/api/image/screen_medium/2853576-gblogo.png",
+        "screen_large_url": "https://www.giantbomb.com/api/image/screen_kubrick/2853576-gblogo.png",
+        "small_url": "https://www.giantbomb.com/api/image/scale_small/2853576-gblogo.png",
+        "super_url": "https://www.giantbomb.com/api/image/scale_large/2853576-gblogo.png",
+        "thumb_url": "https://www.giantbomb.com/api/image/scale_avatar/2853576-gblogo.png",
+        "tiny_url": "https://www.giantbomb.com/api/image/square_mini/2853576-gblogo.png",
+        "original_url": "https://www.giantbomb.com/api/image/original/2853576-gblogo.png",
+        "image_tags": "All Images"
+      }
+    },
+    {
+      "api_detail_url": "https://www.giantbomb.com/api/video_category/23/",
+      "site_detail_url": "https://www.giantbomb.com/videos/giant-bombcast/",
+      "deck": "The Giant Bombcast is the world's most beloved video game podcast, and now it's available in video form.",
+      "id": 23,
+      "name": "Giant Bombcast",
+      "image": {
+        "icon_url": "https://www.giantbomb.com/api/image/square_avatar/2853576-gblogo.png",
+        "medium_url": "https://www.giantbomb.com/api/image/scale_medium/2853576-gblogo.png",
+        "screen_url": "https://www.giantbomb.com/api/image/screen_medium/2853576-gblogo.png",
+        "screen_large_url": "https://www.giantbomb.com/api/image/screen_kubrick/2853576-gblogo.png",
+        "small_url": "https://www.giantbomb.com/api/image/scale_small/2853576-gblogo.png",
+        "super_url": "https://www.giantbomb.com/api/image/scale_large/2853576-gblogo.png",
+        "thumb_url": "https://www.giantbomb.com/api/image/scale_avatar/2853576-gblogo.png",
+        "tiny_url": "https://www.giantbomb.com/api/image/square_mini/2853576-gblogo.png",
+        "original_url": "https://www.giantbomb.com/api/image/original/2853576-gblogo.png",
+        "image_tags": "All Images"
+      }
+    },
+    {
+      "api_detail_url": "https://www.giantbomb.com/api/video_category/12/",
+      "site_detail_url": "https://www.giantbomb.com/videos/encyclopedia-bombastica/",
+      "deck": "Step back into time as we look back at the games that got us to where we are today.",
+      "id": 12,
+      "name": "Old Games",
+      "image": {
+        "icon_url": "https://www.giantbomb.com/api/image/square_avatar/2853576-gblogo.png",
+        "medium_url": "https://www.giantbomb.com/api/image/scale_medium/2853576-gblogo.png",
+        "screen_url": "https://www.giantbomb.com/api/image/screen_medium/2853576-gblogo.png",
+        "screen_large_url": "https://www.giantbomb.com/api/image/screen_kubrick/2853576-gblogo.png",
+        "small_url": "https://www.giantbomb.com/api/image/scale_small/2853576-gblogo.png",
+        "super_url": "https://www.giantbomb.com/api/image/scale_large/2853576-gblogo.png",
+        "thumb_url": "https://www.giantbomb.com/api/image/scale_avatar/2853576-gblogo.png",
+        "tiny_url": "https://www.giantbomb.com/api/image/square_mini/2853576-gblogo.png",
+        "original_url": "https://www.giantbomb.com/api/image/original/2853576-gblogo.png",
+        "image_tags": "All Images"
+      }
+    },
+    {
+      "api_detail_url": "https://www.giantbomb.com/api/video_category/10/",
+      "site_detail_url": "https://www.giantbomb.com/videos/premium/",
+      "deck": "Extra premium video with bonus tomfoolery!",
+      "id": 10,
+      "name": "Premium",
+      "image": {
+        "icon_url": "https://www.giantbomb.com/api/image/square_avatar/2853576-gblogo.png",
+        "medium_url": "https://www.giantbomb.com/api/image/scale_medium/2853576-gblogo.png",
+        "screen_url": "https://www.giantbomb.com/api/image/screen_medium/2853576-gblogo.png",
+        "screen_large_url": "https://www.giantbomb.com/api/image/screen_kubrick/2853576-gblogo.png",
+        "small_url": "https://www.giantbomb.com/api/image/scale_small/2853576-gblogo.png",
+        "super_url": "https://www.giantbomb.com/api/image/scale_large/2853576-gblogo.png",
+        "thumb_url": "https://www.giantbomb.com/api/image/scale_avatar/2853576-gblogo.png",
+        "tiny_url": "https://www.giantbomb.com/api/image/square_mini/2853576-gblogo.png",
+        "original_url": "https://www.giantbomb.com/api/image/original/2853576-gblogo.png",
+        "image_tags": "All Images"
+      }
+    },
+    {
+      "api_detail_url": "https://www.giantbomb.com/api/video_category/3/",
+      "site_detail_url": "https://www.giantbomb.com/videos/quick-looks/",
+      "deck": "Our editors provide commentary as they play through the latest video games.",
+      "id": 3,
+      "name": "Quick Looks",
+      "image": {
+        "icon_url": "https://www.giantbomb.com/api/image/square_avatar/2853576-gblogo.png",
+        "medium_url": "https://www.giantbomb.com/api/image/scale_medium/2853576-gblogo.png",
+        "screen_url": "https://www.giantbomb.com/api/image/screen_medium/2853576-gblogo.png",
+        "screen_large_url": "https://www.giantbomb.com/api/image/screen_kubrick/2853576-gblogo.png",
+        "small_url": "https://www.giantbomb.com/api/image/scale_small/2853576-gblogo.png",
+        "super_url": "https://www.giantbomb.com/api/image/scale_large/2853576-gblogo.png",
+        "thumb_url": "https://www.giantbomb.com/api/image/scale_avatar/2853576-gblogo.png",
+        "tiny_url": "https://www.giantbomb.com/api/image/square_mini/2853576-gblogo.png",
+        "original_url": "https://www.giantbomb.com/api/image/original/2853576-gblogo.png",
+        "image_tags": "All Images"
+      }
+    },
+    {
+      "api_detail_url": "https://www.giantbomb.com/api/video_category/7/",
+      "site_detail_url": "https://www.giantbomb.com/videos/trailers/",
+      "deck": "Developers and publishers want to sell you games! Trailers are how they do it!",
+      "id": 7,
+      "name": "Trailers",
+      "image": {
+        "icon_url": "https://www.giantbomb.com/api/image/square_avatar/2853576-gblogo.png",
+        "medium_url": "https://www.giantbomb.com/api/image/scale_medium/2853576-gblogo.png",
+        "screen_url": "https://www.giantbomb.com/api/image/screen_medium/2853576-gblogo.png",
+        "screen_large_url": "https://www.giantbomb.com/api/image/screen_kubrick/2853576-gblogo.png",
+        "small_url": "https://www.giantbomb.com/api/image/scale_small/2853576-gblogo.png",
+        "super_url": "https://www.giantbomb.com/api/image/scale_large/2853576-gblogo.png",
+        "thumb_url": "https://www.giantbomb.com/api/image/scale_avatar/2853576-gblogo.png",
+        "tiny_url": "https://www.giantbomb.com/api/image/square_mini/2853576-gblogo.png",
+        "original_url": "https://www.giantbomb.com/api/image/original/2853576-gblogo.png",
+        "image_tags": "All Images"
+      }
+    },
+    {
+      "api_detail_url": "https://www.giantbomb.com/api/video_category/13/",
+      "site_detail_url": "https://www.giantbomb.com/videos/unfinished/",
+      "deck": "We get our hands on games that are still a little doughy in the middle. Live demo, folks!",
+      "id": 13,
+      "name": "Unfinished",
+      "image": {
+        "icon_url": "https://www.giantbomb.com/api/image/square_avatar/2853576-gblogo.png",
+        "medium_url": "https://www.giantbomb.com/api/image/scale_medium/2853576-gblogo.png",
+        "screen_url": "https://www.giantbomb.com/api/image/screen_medium/2853576-gblogo.png",
+        "screen_large_url": "https://www.giantbomb.com/api/image/screen_kubrick/2853576-gblogo.png",
+        "small_url": "https://www.giantbomb.com/api/image/scale_small/2853576-gblogo.png",
+        "super_url": "https://www.giantbomb.com/api/image/scale_large/2853576-gblogo.png",
+        "thumb_url": "https://www.giantbomb.com/api/image/scale_avatar/2853576-gblogo.png",
+        "tiny_url": "https://www.giantbomb.com/api/image/square_mini/2853576-gblogo.png",
+        "original_url": "https://www.giantbomb.com/api/image/original/2853576-gblogo.png",
+        "image_tags": "All Images"
+      }
+    }
+  ],
+  "version": "1.0"
+}

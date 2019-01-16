@@ -12,7 +12,7 @@ import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
 class VideoViewFragment: Fragment() {
-    val viewModel by inject<VideoPlayerViewModel> { parametersOf(VideoViewFragmentArgs.fromBundle(arguments).video) }
+    val viewModel by inject<VideoPlayerViewModel> { parametersOf(VideoViewFragmentArgs.fromBundle(arguments!!).video) }
 
     val proxy: HttpProxyCacheServer by inject()
 

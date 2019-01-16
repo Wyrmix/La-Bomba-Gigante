@@ -32,5 +32,5 @@ fun Activity.startActivity(activityClass: KClass<out Activity>) {
 }
 
 fun AppCompatActivity.navigateUp(navigationController: NavController): Boolean {
-    return NavigationUI.navigateUp(null, navigationController)
+    return NavigationUI.navigateUp(navigationController, null)
 }

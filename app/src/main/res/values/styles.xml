@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryDark">@color/primaryDarkColor</item>
         <item name="colorAccent">@color/secondaryColor</item>
@@ -16,5 +16,32 @@
         <item name="android:windowActionBar">false</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="SearchViewTheme" parent="Widget.AppCompat.SearchView.ActionBar">
+        <!--<item name="layout">@layout/toolbar_search_view</item>-->
+        <!--<item name="commitIcon">@drawable/ic_search_commit</item>-->
+        <!--<item name="colorControlNormal">@color/material_light_active_icon</item>-->
+        <!--<item name="colorControlHighlight">@color/material_ripple_light</item>-->
+        <!--<item name="autoCompleteTextViewStyle">@style/AutoCompleteTextViewStyle</item>-->
+        <!--<item name="suggestionRowLayout">@layout/search_view_suggestion_row</item>-->
+        <item name="android:maxWidth">9999dp</item>
+    </style>
+
+    <style name="AutoCompleteTextViewStyle" parent="Widget.AppCompat.Light.AutoCompleteTextView">
+        <!--<item name="android:popupBackground">@drawable/search_suggestions_bg</item>-->
+        <item name="android:popupElevation">0dp</item>
+    </style>
+
+    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="searchViewStyle">@style/SearchViewTheme</item>
+    </style>
+
+    <style name="LeanbackPreferences" parent="Theme.Leanback">
+        <item name="preferenceTheme">@style/Theme.Leanback</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:colorPrimary">@color/fastlane_background</item>
     </style>
 </resources>

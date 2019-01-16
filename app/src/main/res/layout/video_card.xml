@@ -10,6 +10,9 @@
         <variable
             name="video"
             type="com.wyrmix.giantbombvideoplayer.video.database.Video"/>
+        <variable
+            name="download"
+            type="com.tonyodev.fetch2.Download"/>
     </data>
 
     <androidx.cardview.widget.CardView
@@ -34,24 +37,36 @@
                 android:src="@mipmap/ic_launcher"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/video_thumbnail" />
+                app:layout_constraintTop_toBottomOf="@+id/determinateBar" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/video_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
                 android:padding="8dp"
                 android:text="@{video.name}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/video_category_icon"
-                app:layout_constraintTop_toBottomOf="@+id/video_thumbnail"
                 tools:text="Video Title" />
+
+            <ProgressBar
+                android:id="@+id/determinateBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:indeterminate="false"
+                android:max="100"
+                android:progress="0"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/video_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/video_thumbnail" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/video_thumbnail"
