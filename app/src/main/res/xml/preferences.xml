@@ -22,6 +22,7 @@
             android:key="@string/pref_key_settings_appearance_dark"
             android:summary="@string/settings_appearance_dark_subtitle"
             android:title="@string/settings_appearance_dark_title"
+            android:enabled="false"
             android:defaultValue="false" />
     </PreferenceCategory>
     <PreferenceCategory

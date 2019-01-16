@@ -5,16 +5,12 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.Point
-import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.WindowManager
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
@@ -25,8 +21,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.bumptech.glide.util.LruCache
-import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
+import com.google.android.material.snackbar.Snackbar
 import com.wyrmix.giantbombvideoplayer.databinding.ActivityMainBinding
 import com.wyrmix.giantbombvideoplayer.extension.navigateUp
 import com.wyrmix.giantbombvideoplayer.onboarding.OnboardingActivity
@@ -34,9 +29,6 @@ import com.wyrmix.giantbombvideoplayer.video.list.VideoBrowseViewModel
 import com.wyrmix.giantbombvideoplayer.video.models.VideoType
 import com.wyrmix.giantbombvideoplayer.video.network.ApiRepository
 import io.palaima.debugdrawer.DebugDrawer
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
 import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -57,6 +49,8 @@ class MainActivity : AppCompatActivity() {
     val viewModel by viewModel<VideoBrowseViewModel>()
     val memCache by inject<LruCache<String, Bitmap>>()
 
+    lateinit var comingSoonSnackbar: Snackbar
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -68,6 +62,8 @@ class MainActivity : AppCompatActivity() {
         Timber.i("viewModel $viewModel")
 
         val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        comingSoonSnackbar = Snackbar.make(binding.root, R.string.coming_soon, Snackbar.LENGTH_LONG)
 
         val navController = findNavController(R.id.main_nav_fragment)
         NavigationUI.setupWithNavController(binding.bottomNavBar, navController)
@@ -123,54 +119,55 @@ class MainActivity : AppCompatActivity() {
 
     fun search() {
         Timber.d("search")
+        comingSoonSnackbar.show()
     }
 
     fun filter() {
         Timber.d("filter")
+        comingSoonSnackbar.show()
 
-
-        GlobalScope.async(Dispatchers.Main) {
-            val layout = LayoutInflater.from(this@MainActivity).inflate(R.layout.dialog_filter, findViewById(android.R.id.content), false)
-            val chipGroup = layout.findViewById<ChipGroup>(R.id.chipGroup) ?: return@async
-
-            val dialog = AlertDialog.Builder(this@MainActivity)
-                    .setView(layout)
-                    .setPositiveButton("Confirm") { dialog, which ->
-                        Timber.i("clicked positive button")
-                        val set = mutableSetOf<String>()
-                        chipGroup.children.forEach {
-                            val chip = it as? Chip ?: return@forEach
-                            if (chip.isChecked) set.add(chip.tag as String)
-                        }
-                        val editor = sharedPrefs.edit()
-                        editor.putStringSet("filter", set)
-                        editor.apply()
-                    }
-                    .setNegativeButton("Cancel", null)
-                    .setTitle("Filter")
-                    .show()
-
-            val set = sharedPrefs.getStringSet("filter", emptySet()) ?: emptySet()
-
-            viewModel.videoTypes.value?.forEach {
-                val chip = Chip(this@MainActivity)
-                chip.text = it.title
-                chip.isCheckable = true
-                chip.isChecked = set.contains(it.filter())
-
-                val image = memCache.get(it.title) ?: async(Dispatchers.IO) {
-                    Glide.with(this@MainActivity)
-                            .asBitmap()
-                            .load(it.image.tinyImageUrl)
-                            .apply(RequestOptions.circleCropTransform())
-                            .submit()
-                            .get()
-                }.await()
-                chip.chipIcon = BitmapDrawable(resources, image)
-                chip.tag = it.filter()
-                chipGroup.addView(chip)
-            }
-        }
+//        GlobalScope.async(Dispatchers.Main) {
+//            val layout = LayoutInflater.from(this@MainActivity).inflate(R.layout.dialog_filter, findViewById(android.R.id.content), false)
+//            val chipGroup = layout.findViewById<ChipGroup>(R.id.chipGroup) ?: return@async
+//
+//            val dialog = AlertDialog.Builder(this@MainActivity)
+//                    .setView(layout)
+//                    .setPositiveButton("Confirm") { dialog, which ->
+//                        Timber.i("clicked positive button")
+//                        val set = mutableSetOf<String>()
+//                        chipGroup.children.forEach {
+//                            val chip = it as? Chip ?: return@forEach
+//                            if (chip.isChecked) set.add(chip.tag as String)
+//                        }
+//                        val editor = sharedPrefs.edit()
+//                        editor.putStringSet("filter", set)
+//                        editor.apply()
+//                    }
+//                    .setNegativeButton("Cancel", null)
+//                    .setTitle("Filter")
+//                    .show()
+//
+//            val set = sharedPrefs.getStringSet("filter", emptySet()) ?: emptySet()
+//
+//            viewModel.videoTypes.value?.forEach {
+//                val chip = Chip(this@MainActivity)
+//                chip.text = it.title
+//                chip.isCheckable = true
+//                chip.isChecked = set.contains(it.filter())
+//
+//                val image = memCache.get(it.title) ?: async(Dispatchers.IO) {
+//                    Glide.with(this@MainActivity)
+//                            .asBitmap()
+//                            .load(it.image.tinyImageUrl)
+//                            .apply(RequestOptions.circleCropTransform())
+//                            .submit()
+//                            .get()
+//                }.await()
+//                chip.chipIcon = BitmapDrawable(resources, image)
+//                chip.tag = it.filter()
+//                chipGroup.addView(chip)
+//            }
+//        }
     }
 
     private fun preloadImages(types: List<VideoType>) {
