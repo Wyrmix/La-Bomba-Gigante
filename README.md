@@ -4,6 +4,13 @@
 
 [Google Play](https://play.google.com/store/apps/details?id=com.kyleriedemann.labombagigante)
 
+A simple video browser for giantbomb.com featuring:
+
+- Premium authentication
+- Video downloading and playback
+- Picture in Picture on Android Oreo+
+- AndroidTV support coming soon
+
 ## Screenshots
 
 ![Video App](/play_store/phone_screenshots/Screenshot_20190115-181054.png?raw=true "Video App")
